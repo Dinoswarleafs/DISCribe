@@ -4,7 +4,7 @@ import users
 USER_LIMIT = -1
 user_ids = []
 user_names = []
-with open('meme.csv') as file:
+with open('cake_log.csv', encoding='utf8') as file:
     csv_reader = csv.reader(file, delimiter=',')
     next(csv_reader)
 
@@ -28,17 +28,23 @@ with open('meme.csv') as file:
     users = users.Users(user_ids, user_names)
     row_count = 0
     for row in csv_reader:
-        message = row[3].split()
+        # Load Values
         msgID = row[0]
+        date = row[2]
+        message = row[3].split()
+        # Load Date Values
+        users.addMessage(msgID, date)
+        # Load Individual Words
         for word in message:
             users.addWord(msgID, word)
+        # Printing Progress
         if row_count % 1000 == 0:
             print("Read " + str(row_count) + " lines")
         row_count += 1
     print("Done reading.")
     
     print("Now writing")
-    f = open("output.txt", "w")
+    f = open("output.txt", "w", encoding="utf8")
     f.write(str(users))
     f.close
 print("Done")

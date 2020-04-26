@@ -7,8 +7,12 @@ class Users:
     def __str__(self):
         res = ""
         for user in self.user_list:
-            user.sortDict()
-            res += "Name: " + user.name + "\nID: " + user.id + "\nDict: " + str(user.sorted_dict) + "\n\n\n"
+            user.sortDicts()
+            user.calcStats()
+            nameStr = "Name: " + user.name
+            idStr = "ID: " + user.id
+            statsStr = "Stats: \n\tAvg Word Len: " + str(user.word_stats[user.WORD_AVG_LEN]) + "\n\tWord Standard Dev: " + str(user.word_stats[user.WORD_STD])
+            res +=  "{}\n{}\n{}\nDict:\n{}".format(nameStr, idStr, statsStr, user.sorted_dicts[user.WORD_DICT])
         return res
 
     def addWord(self, id, word):
@@ -18,7 +22,7 @@ class Users:
         return self.user_list[self.__getIndex(id)].getWord(word)
 
     def addMessage(self, id, date):
-        
+        self.user_list[self.__getIndex(id)].addMessage(date)
 
     def __getIndex(self, refID):
         index = 0
