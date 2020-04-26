@@ -17,6 +17,9 @@ class Users:
     def getWord(self, id, word):
         return self.user_list[self.__getIndex(id)].getWord(word)
 
+    def addMessage(self, id, date):
+        
+
     def __getIndex(self, refID):
         index = 0
         for user in self.user_list:
